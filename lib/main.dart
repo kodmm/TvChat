@@ -33,6 +33,7 @@ class WelcomePage extends StatelessWidget {
           child: Column(
             children: [
               _Header(),
+              _SignInButton(),
             ],
           ),
         ),
@@ -144,3 +145,32 @@ class _Header extends StatelessWidget {
     }
 }
 
+class _SignInButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SignInButton(
+            Buttons.GoogleDark,
+            text: "Sign in with Google",
+            onPressed: (){},
+          ),
+          SizedBox(height: 8),
+          SignInButton(
+            Buttons.Twitter,
+            text: "Sign in with Twitter",
+            onPressed: (){},
+          ),
+          SizedBox(height: 8),
+          SignInButton(
+            Buttons.GitHub,
+            text: "Sign in with Github",
+            onPressed: (){},
+          ),
+        ],
+      ),
+    );
+  }
+}
