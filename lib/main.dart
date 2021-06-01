@@ -163,12 +163,7 @@ class _SignInButton extends StatelessWidget {
             text: "Sign in with Twitter",
             onPressed: (){},
           ),
-          SizedBox(height: 8),
-          SignInButton(
-            Buttons.GitHub,
-            text: "Sign in with Github",
-            onPressed: (){},
-          ),
+
         ],
       ),
     );
