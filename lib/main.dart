@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -166,6 +168,36 @@ class _SignInButton extends StatelessWidget {
 
         ],
       ),
+    );
+  }
+}
+
+class FlutterFireInit extends StatefulWidget {
+  @override
+  _FlutterFireInitState createState() => _FlutterFireInitState();
+}
+
+class _FlutterFireInitState extends State<FlutterFireInit> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          // return SomethingWentWrong();
+          return Container(color: Colors.red, width: 300,0, height: 300.0)
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          // return MyApp();
+          return Container(color: Colors.green, width: 300,0, height: 300.0)
+        }
+
+        // return Loading();
+        return Container(color: Colors.blue, width: 300,0, height: 300.0)
+      },
     );
   }
 }
