@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,6 +11,8 @@ class AuthMethods {
 
 
   signInWithGoogle(BuildContext context) async {
+    final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
     final GoogleSignInAccount? googleSignInAccount =
       await GoogleSignIn().signIn();
 
@@ -26,7 +26,7 @@ class AuthMethods {
         accessToken: googleAuth.accessToken
       );
 
-      UserCredential result = await auth.signInWithCredential(credential);
+      UserCredential result = await _firebaseAuth.signInWithCredential(credential);
 
       User? userDetails = result.user;
 
