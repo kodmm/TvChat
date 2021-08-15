@@ -5,8 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tvchat/services/auth.dart';
 
-import 'screens/chats/chats_screen.dart';
-
 void main() {
   runApp(FlutterFireInit());
 }
