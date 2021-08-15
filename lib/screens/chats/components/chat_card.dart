@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tvchat/models/Chat.dart';
 
 class ChatCard extends StatelessWidget {
   const ChatCard({
@@ -8,7 +7,7 @@ class ChatCard extends StatelessWidget {
     required this.press,
   }) : super(key: key);
 
-  final Chat chat;
+  final dynamic chat;
   final VoidCallback press;
 
   @override
@@ -28,7 +27,7 @@ class ChatCard extends StatelessWidget {
                 height: 48,
                 child: Center(
                   child: Text(
-                    chat.name.substring(0, 1),
+                    chat["name"].substring(0, 1),
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                 ),
@@ -42,14 +41,14 @@ class ChatCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      chat.name,
+                      chat["name"],
                       style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 8),
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        chat.lastMessage,
+                        chat["onAirProgram"],
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

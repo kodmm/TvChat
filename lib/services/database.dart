@@ -14,6 +14,11 @@ class DatabaseMethods {
         .set(userInfoMap);
   }
 
+  Future<QuerySnapshot> getBroadcastingOffices() async {
+    return FirebaseFirestore.instance
+        .collection("broadcastingOffices")
+        .get();
+  }
 
 
 
