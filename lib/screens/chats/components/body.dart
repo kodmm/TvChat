@@ -6,6 +6,8 @@ import 'chat_card.dart';
 
 
 class Body extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,4 +30,5 @@ class Body extends StatelessWidget {
     );
   }
 }
+
 

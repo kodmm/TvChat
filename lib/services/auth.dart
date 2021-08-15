@@ -58,21 +58,17 @@ class AuthMethods {
         });
     }
 
-    signOut() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.clear();
-      await auth.signOut()
-        .then((value) {
-          Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => WelcomePage())
-          );
-        });
-    }
-
   }
 
-
-
-
+  signOut(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    await auth.signOut()
+        .then((value) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => WelcomePage())
+      );
+    });
+  }
 
 }
