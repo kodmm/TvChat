@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tvchat/helperfunctions/sharedpref_helper.dart';
+import 'package:tvchat/screens/chats/chats_screen.dart';
+
+import '../main.dart';
+import 'database.dart';
 
 class AuthMethods {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -39,11 +44,29 @@ class AuthMethods {
 
       Map<String, String> userInfoMap = {
         "email": userDetails.email!,
-        "username": userDetails.email!.replaceAll("@gmail.com", "");
-        "name": userDetails.displayName,
-        "imgUrl": userDetails.photoURL,
+        "username": userDetails.email!.replaceAll("@gmail.com", ""),
+        "name": userDetails.displayName!,
+        "imgUrl": userDetails.photoURL!,
       };
 
+      DatabaseMethods()
+        .addUserInfoToDB(userDetails.uid, userInfoMap)
+        .then((value) {
+          Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => ChatsScreen())
+          );
+        });
+    }
+
+    signOut() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+      await auth.signOut()
+        .then((value) {
+          Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => WelcomePage())
+          );
+        });
     }
 
   }
