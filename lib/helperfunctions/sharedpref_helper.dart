@@ -18,7 +18,7 @@ class SharedPreferenceHelper {
     return prefs.setString(userEmailKey, getUserEmail);
   }
 
-  Future<bool> saveUserid(String getUserId) async {
+  Future<bool> saveUserId(String getUserId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(userIdKey, getUserId);
   }

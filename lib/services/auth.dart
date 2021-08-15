@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tvchat/helperfunctions/sharedpref_helper.dart';
 
 class AuthMethods {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -30,8 +31,18 @@ class AuthMethods {
 
       User? userDetails = result.user;
 
+      SharedPreferenceHelper().saveUserEmail(userDetails!.email.toString());
+      SharedPreferenceHelper().saveUserId(userDetails.uid);
+      SharedPreferenceHelper().saveUserName(userDetails.email!.replaceAll("@gmail.com", ""));
+      SharedPreferenceHelper().saveDisplayName(userDetails.displayName!);
+      SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL!);
 
-
+      Map<String, String> userInfoMap = {
+        "email": userDetails.email!,
+        "username": userDetails.email!.replaceAll("@gmail.com", "");
+        "name": userDetails.displayName,
+        "imgUrl": userDetails.photoURL,
+      };
 
     }
 
