@@ -21,13 +21,15 @@ class DatabaseMethods {
         .get();
   }
 
-  Future<Stream<QuerySnapshot>> getChats(String broadcastingOffice) async {
+  Stream<QuerySnapshot> getChats(String broadcastingOffice) {
     return FirebaseFirestore.instance
         .collection(broadcastingOffices)
         .doc(broadcastingOffice)
         .collection(chats)
         .snapshots();
   }
+
+
 
 
 
