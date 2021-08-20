@@ -53,7 +53,7 @@ class _BodyState extends State<Body> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MessagesScreen(),
+                              builder: (context) => MessagesScreen(data['name'], data['onAirProgram']),
                             ),
                           ),
                     );

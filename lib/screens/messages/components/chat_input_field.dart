@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-class ChatInputField extends StatelessWidget {
+class ChatInputField extends StatefulWidget {
   const ChatInputField({
     Key? key,
   }) : super(key: key);
 
+  @override
+  _ChatInputFieldState createState() => _ChatInputFieldState();
+}
+
+class _ChatInputFieldState extends State<ChatInputField> {
+  TextEditingController messageTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,6 +48,7 @@ class ChatInputField extends StatelessWidget {
                   SizedBox(width: 20.0 / 4),
                   Expanded(
                     child: TextField(
+                      controller: messageTextEditingController,
                       decoration: InputDecoration(
                         hintText: "Type message",
                         border: InputBorder.none,
@@ -54,6 +61,15 @@ class ChatInputField extends StatelessWidget {
                   SizedBox(width: 20.0 / 4),
                   Icon(
                     Icons.camera_alt_outlined,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+
+                    },
+                    child: Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
