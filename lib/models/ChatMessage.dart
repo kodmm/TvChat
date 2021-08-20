@@ -60,3 +60,16 @@ List demoChatMessages = [
   ),
   
 ];
+imgUrl
+""
+（文字列）
+messageStatus
+""
+messageType
+""
+sendBy
+""
+text
+""
+ts
+2021年8月15日 0:00:00 UTC+9
