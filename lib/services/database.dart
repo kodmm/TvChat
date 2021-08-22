@@ -35,16 +35,13 @@ class DatabaseMethods {
     FirebaseFirestore.instance
         .collection(broadcastingOffices)
         .doc(broadcastingOffice)
-        .collection(chats)
-        .where("users", arrayContains: myUsername.toString())
         .get()
-        .then((querySnapshot){
-          if (querySnapshot.docs.isEmpty) {
+        .then((documentSnapshot){
+          Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+          if (!data['users'].contains(myUsername)) {
             FirebaseFirestore.instance
-                .collection(broadcastingOffice)
+                .collection(broadcastingOffices)
                 .doc(broadcastingOffice)
-                .collection(chats)
-                .doc("chat")
                 .update({
               "users": FieldValue.arrayUnion([myUsername])
             });
@@ -52,5 +49,13 @@ class DatabaseMethods {
         });
 
 
+  }
+
+  addMessage(String broadcastingOffice) {
+    FirebaseFirestore.instance
+        .collection(broadcastingOffices)
+        .doc(broadcastingOffice)
+        .collection(chats)
+        .
   }
 }
