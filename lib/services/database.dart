@@ -51,11 +51,19 @@ class DatabaseMethods {
 
   }
 
-  addMessage(String broadcastingOffice) {
+  addMessage(String broadcastingOffice, messageId, Map<String, dynamic> messageInfoMap) {
     FirebaseFirestore.instance
         .collection(broadcastingOffices)
         .doc(broadcastingOffice)
         .collection(chats)
-        .
+        .doc(messageId)
+        .set(messageInfoMap);
+  }
+
+  updateLastMessageSend(String broadcastingOffice, Map<String, dynamic> broadCastingOfficeMap) {
+    FirebaseFirestore.instance
+        .collection(broadcastingOffices)
+        .doc(broadcastingOffice)
+        .update(broadCastingOfficeMap);
   }
 }
