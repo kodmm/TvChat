@@ -34,9 +34,14 @@ class _BodyState extends State<Body> {
     });
   }
 
+  findOrCreateUsers() async {
+    DatabaseMethods().joinChats(widget.broadCastingOffice);
+  }
+
   @override
   void initState() {
     getMyInfoFromSharedPreference();
+    findOrCreateUsers();
     getChats();
     super.initState();
   }

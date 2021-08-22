@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tvchat/helperfunctions/sharedpref_helper.dart';
 // import 'package:tvchat/helperfunctions/sharedpref_helper.dart';
 
 class DatabaseMethods {
@@ -29,8 +30,27 @@ class DatabaseMethods {
         .snapshots();
   }
 
+  Future<void>joinChats(String broadcastingOffice) async {
+    String myUsername = SharedPreferenceHelper().getUserName().toString();
+    FirebaseFirestore.instance
+        .collection(broadcastingOffices)
+        .doc(broadcastingOffice)
+        .collection(chats)
+        .where("users", arrayContains: myUsername.toString())
+        .get()
+        .then((querySnapshot){
+          if (querySnapshot.docs.isEmpty) {
+            FirebaseFirestore.instance
+                .collection(broadcastingOffice)
+                .doc(broadcastingOffice)
+                .collection(chats)
+                .doc("chat")
+                .update({
+              "users": FieldValue.arrayUnion([myUsername])
+            });
+          }
+        });
 
 
-
-
+  }
 }
