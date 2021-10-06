@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatCard extends StatelessWidget {
   const ChatCard({
@@ -7,7 +8,7 @@ class ChatCard extends StatelessWidget {
     required this.press,
   }) : super(key: key);
 
-  final dynamic chat;
+  final DocumentSnapshot chat;
   final VoidCallback press;
 
   @override

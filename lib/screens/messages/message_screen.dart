@@ -15,7 +15,6 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +35,7 @@ AppBar buildAppBar(String broadCastingOffice, onAirProgram) {
               height: 48,
               child: Center(
                 child: Text(
-                  "SMAP".substring(0, 1),
+                  broadCastingOffice.substring(0, 1),
                   style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
               ),
