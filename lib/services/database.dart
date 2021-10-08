@@ -31,13 +31,14 @@ class DatabaseMethods {
   }
 
   Future<void>joinChats(String broadcastingOffice) async {
-    String myUsername = SharedPreferenceHelper().getUserName().toString();
+    String myUsername = await SharedPreferenceHelper().getUserName() as String;
     FirebaseFirestore.instance
         .collection(broadcastingOffices)
         .doc(broadcastingOffice)
         .get()
         .then((documentSnapshot){
           Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+
           if (!data['users'].contains(myUsername)) {
             FirebaseFirestore.instance
                 .collection(broadcastingOffices)

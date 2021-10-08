@@ -21,10 +21,10 @@ class _BodyState extends State<Body> {
   String? myName, myProfilePic, myUserName, myEmail;
   Stream<QuerySnapshot>? _chats;
   getMyInfoFromSharedPreference() async {
-    myName = SharedPreferenceHelper().getDisplayName().toString();
-    myProfilePic = SharedPreferenceHelper().getUserProfileUrl().toString();
-    myEmail = SharedPreferenceHelper().getUserEmail().toString();
-    myUserName = SharedPreferenceHelper().getUserName().toString();
+    myName = await SharedPreferenceHelper().getDisplayName();
+    myProfilePic = await SharedPreferenceHelper().getUserProfileUrl();
+    myEmail = await SharedPreferenceHelper().getUserEmail();
+    myUserName = await SharedPreferenceHelper().getUserName();
   }
 
 
