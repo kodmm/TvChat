@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tvchat/helperfunctions/sharedpref_helper.dart';
-// import 'package:tvchat/helperfunctions/sharedpref_helper.dart';
 
 class DatabaseMethods {
   final String broadcastingOffices = "broadcastingOffices";
@@ -22,15 +21,16 @@ class DatabaseMethods {
         .get();
   }
 
-  Stream<QuerySnapshot> getChats(String broadcastingOffice) {
+  Future<Stream<QuerySnapshot>> getChats(String broadcastingOffice) async {
     return FirebaseFirestore.instance
         .collection(broadcastingOffices)
         .doc(broadcastingOffice)
         .collection(chats)
+        .orderBy("ts")
         .snapshots();
   }
 
-  Future<void>joinChats(String broadcastingOffice) async {
+  Future<void> joinChats(String broadcastingOffice) async {
     String myUsername = await SharedPreferenceHelper().getUserName() as String;
     FirebaseFirestore.instance
         .collection(broadcastingOffices)
@@ -48,12 +48,10 @@ class DatabaseMethods {
             });
           }
         });
-
-
   }
 
-  addMessage(String broadcastingOffice, messageId, Map<String, dynamic> messageInfoMap) {
-    FirebaseFirestore.instance
+  Future addMessage(String broadcastingOffice, messageId, Map<String, dynamic> messageInfoMap) async {
+    return FirebaseFirestore.instance
         .collection(broadcastingOffices)
         .doc(broadcastingOffice)
         .collection(chats)
