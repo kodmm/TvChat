@@ -1,15 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:tvchat/services/database.dart';
+import 'package:random_string/random_string.dart';
 class ChatInputField extends StatefulWidget {
-  const ChatInputField({
-    Key? key,
-  }) : super(key: key);
+  ChatInputField(this.myUserName, this.myProfilePic, this.broadCastingOffice);
 
+  final String? myUserName, myProfilePic;
+  final String broadCastingOffice;
   @override
   _ChatInputFieldState createState() => _ChatInputFieldState();
 }
 
 class _ChatInputFieldState extends State<ChatInputField> {
   TextEditingController messageTextEditingController = TextEditingController();
+  String messageId = "";
+
+  addMessage() {
+    if (messageTextEditingController.text != "") {
+      String message = messageTextEditingController.text;
+      var lastMessageTs = DateTime.now();
+
+      Map<String, dynamic> messageInfoMap = {
+        "imgUrl": widget.myProfilePic,
+        "messageStatus": 0,
+        "messageType": 0,
+        "sendBy": widget.myUserName,
+        "text": message,
+        "ts": lastMessageTs,
+      };
+
+      messageId = widget.myUserName.toString() +
+          "_" + randomAlphaNumeric(12);
+
+      DatabaseMethods().addMessage(
+          widget.broadCastingOffice, messageId, messageInfoMap)
+          .then((value) {
+        Map<String, dynamic> lastMessageInfoMap = {
+          "lastMessage": message,
+          "lastMessageSendBy": widget.myUserName,
+          "lastMessageSendTs": lastMessageTs,
+        };
+
+        DatabaseMethods().updateLastMessageSend(
+            widget.broadCastingOffice, lastMessageInfoMap);
+
+            () {
+          messageTextEditingController.text = "";
+        }();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,7 +104,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                   ),
                   GestureDetector(
                     onTap: () {
-
+                        addMessage();
                     },
                     child: Icon(
                       Icons.send,

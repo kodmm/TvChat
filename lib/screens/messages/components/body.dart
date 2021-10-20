@@ -29,9 +29,8 @@ class _BodyState extends State<Body> {
 
 
   getChats() async {
-    setState((){
-      _chats = DatabaseMethods().getChats(widget.broadCastingOffice);
-    });
+    _chats = await DatabaseMethods().getChats(widget.broadCastingOffice);
+    setState(() {});
   }
 
   findOrCreateUsers() async {
@@ -65,16 +64,26 @@ class _BodyState extends State<Body> {
                 return ListView.builder(
                   itemCount: snapshot.data!.size,
                   itemBuilder: (context, index) {
-                    ChatMessage data = snapshot.data!.docs[index]
-                      as ChatMessage;
-                    return Message(message: data,);
+                    Map<String, dynamic> data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                    ChatMessage chatMessage = ChatMessage.fromJson(data);
+                    print(chatMessage);
+                    return Message(message: chatMessage);
                   },
                 );
+                // return ListView.builder(
+                //   itemCount: snapshot.data!.size,
+                //   itemBuilder: (context, index) {
+                //
+                //     Map<String, dynamic> data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                //     ChatMessage chatMessage = ChatMessage.fromJson(data);
+                //     return Text(data['text']);
+                //   }
+                // );
               },
             ),
           ),
         ),
-        ChatInputField(),
+        ChatInputField(myUserName, myProfilePic, widget.broadCastingOffice),
       ],
     );
   }

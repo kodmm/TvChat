@@ -4,19 +4,28 @@ enum MessageType { text, audio, image, video}
 enum MessageStatus { not_sent, not_view, viewed}
 
 class ChatMessage {
-  final String text, sendBy, imgUrl;
-  final MessageType messageType;
-  final MessageStatus messageStatus;
-  final  Timestamp ts;
+   final String text, sendBy, imgUrl;
+   final MessageType messageType;
+   final MessageStatus messageStatus;
+   final Timestamp ts;
 
-  ChatMessage({
-    this.text = '',
-    required this.messageType,
-    required this.messageStatus,
-    required this.sendBy,
-    required this.ts,
-    required this.imgUrl,
-  });
+  ChatMessage(
+    this.text,
+    this.messageType,
+    this.messageStatus,
+    this.sendBy,
+    this.ts,
+    this.imgUrl,
+  );
+
+  ChatMessage.fromJson(Map<String, dynamic> json)
+    : text = json['text'],
+      messageType = MessageType.values[json['messageType']],
+      messageStatus = MessageStatus.values[json['messageStatus']],
+      sendBy = json['sendBy'],
+      ts = json['ts'],
+      imgUrl = json['imgUrl'];
+
 }
 
 // List demoChatMessages = [
